@@ -5,4 +5,8 @@
     <string name="ecommerce">ECommerce</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_title">TextView</string>
+    <string name="steps_represented_in_app">steps represented in app</string>
+    <string name="left_arrow_desc">button to goto left page</string>
+    <string name="finish">Finish</string>
 </resources>
