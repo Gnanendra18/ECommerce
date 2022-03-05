@@ -7,7 +7,18 @@
 
     <fragment
         android:id="@+id/viewPagerFragment"
-        android:name="com.incrediblepath.ecommerce.fragments.ViewPagerFragment"
+        android:name="com.incrediblepath.ecommerce.onboarding.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" />
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/viewPagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.incrediblepath.ecommerce.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
