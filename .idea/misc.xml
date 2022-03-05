@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_splash_theme.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/fragment_common.xml" value="0.1896551724137931" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.11614583333333334" />
         <entry key="app/src/main/res/layout/fragment_view_pager.xml" value="0.11614583333333334" />
       </map>
     </option>
