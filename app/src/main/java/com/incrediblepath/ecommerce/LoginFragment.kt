@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 class LoginFragment : Fragment() {
 
-    lateinit var auth:FirebaseAuth
+    private lateinit var auth:FirebaseAuth
     lateinit var storedVerificationId:String
     lateinit var resendToken:PhoneAuthProvider.ForceResendingToken
     private  val TAG = "LoginFragment"
@@ -72,11 +73,14 @@ class LoginFragment : Fragment() {
     ): View {
         val binding = FragmentLoginBinding.inflate(inflater,container,false)
         auth = FirebaseAuth.getInstance()
-        binding.sendOtp.setOnClickListener{
+        binding.login.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+            binding.sendOtp.setOnClickListener{
             val phone = binding.phone.text.toString()
             if(!TextUtils.isEmpty(phone) && phone.length == 10) {
                 val options = PhoneAuthOptions.newBuilder(auth)
-                    .setPhoneNumber("+91" + phone)       // Phone number to verify
+                    .setPhoneNumber("+1" + phone)       // Phone number to verify
                     .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                     .setActivity(requireActivity())                 // Activity (for callback binding)
                     .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
@@ -101,6 +105,7 @@ class LoginFragment : Fragment() {
             OnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(requireContext(),"Login Successful",Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             })
     }

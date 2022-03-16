@@ -23,7 +23,7 @@ class ViewPagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        list = arrayListOf(CommonFragment(0), CommonFragment(1), CommonFragment(2),)
+        list = arrayListOf(CommonFragment(0), CommonFragment(1), CommonFragment(2))
         fragmentViewPagerBinding = FragmentViewPagerBinding.inflate(inflater, container, false)
         fragmentViewPagerBinding.viewPager.adapter = ViewPagerAdapter(
             requireActivity().supportFragmentManager,
@@ -39,7 +39,7 @@ class ViewPagerFragment : Fragment() {
         }
         fragmentViewPagerBinding.rightNav.setOnClickListener {
             val currentItem = fragmentViewPagerBinding.viewPager.currentItem
-            if (currentItem < list.size-1) {
+            if (currentItem < list.size - 1) {
                 fragmentViewPagerBinding.viewPager.setCurrentItem(currentItem + 1)
             }
         }
@@ -47,18 +47,22 @@ class ViewPagerFragment : Fragment() {
         fragmentViewPagerBinding.viewPager.registerOnPageChangeCallback(object :
             OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                if (position == 0) {
-                    fragmentViewPagerBinding.leftNav.visibility = View.GONE
-                    fragmentViewPagerBinding.rightNav.visibility = View.VISIBLE
-                    fragmentViewPagerBinding.finish.visibility = View.GONE
-                } else if (position == list.size-1) {
-                    fragmentViewPagerBinding.rightNav.visibility = View.GONE
-                    fragmentViewPagerBinding.leftNav.visibility = View.VISIBLE
-                    fragmentViewPagerBinding.finish.visibility = View.VISIBLE
-                } else {
-                    fragmentViewPagerBinding.leftNav.visibility = View.VISIBLE
-                    fragmentViewPagerBinding.rightNav.visibility = View.VISIBLE
-                    fragmentViewPagerBinding.finish.visibility = View.GONE
+                when (position) {
+                    0 -> {
+                        fragmentViewPagerBinding.leftNav.visibility = View.GONE
+                        fragmentViewPagerBinding.rightNav.visibility = View.VISIBLE
+                        fragmentViewPagerBinding.finish.visibility = View.GONE
+                    }
+                    list.size - 1 -> {
+                        fragmentViewPagerBinding.rightNav.visibility = View.GONE
+                        fragmentViewPagerBinding.leftNav.visibility = View.VISIBLE
+                        fragmentViewPagerBinding.finish.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        fragmentViewPagerBinding.leftNav.visibility = View.VISIBLE
+                        fragmentViewPagerBinding.rightNav.visibility = View.VISIBLE
+                        fragmentViewPagerBinding.finish.visibility = View.GONE
+                    }
                 }
             }
 
@@ -69,7 +73,10 @@ class ViewPagerFragment : Fragment() {
             findNavController().navigate(R.id.action_viewPagerFragment_to_loginFragment)
         }
 
-        TabLayoutMediator(fragmentViewPagerBinding.tabLayout, fragmentViewPagerBinding.viewPager) { tab, position ->
+        TabLayoutMediator(
+            fragmentViewPagerBinding.tabLayout,
+            fragmentViewPagerBinding.viewPager
+        ) { tab, position ->
             //tab.text = "OBJECT ${(position + 1)}"
         }.attach()
         return fragmentViewPagerBinding.root
